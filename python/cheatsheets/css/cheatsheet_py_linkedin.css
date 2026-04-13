@@ -1,0 +1,164 @@
+  :root {
+    --bg:      #0d1117;
+    --surface: #161b22;
+    --border:  #30363d;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    width: 1080px;
+    min-height: 1350px;
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a0f1e 0%, #1a2744 60%, #0a0f1e 100%);
+    padding: 48px 52px 40px;
+    border-bottom: 3px solid #ffd43b;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '🐍';
+    position: absolute;
+    right: 48px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 100px;
+    opacity: 0.08;
+  }
+  .tag-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tag {
+    background: rgba(255,211,59,.12);
+    border: 1px solid rgba(255,211,59,.4);
+    color: #ffd43b;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+  .tag.blue {
+    background: rgba(75,139,190,.15);
+    border-color: rgba(75,139,190,.5);
+    color: #4b8bbe;
+  }
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffd43b 0%, #4b8bbe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    opacity: 0.8;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    padding: 28px 28px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--ac);
+  }
+  .card.span2 { grid-column: span 2; }
+  .card.span3 { grid-column: span 3; }
+
+  .card-head {
+    padding: 10px 14px 9px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,.02);
+  }
+  .card-head .icon { font-size: 15px; }
+  .card-head .title {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    color: var(--ac);
+  }
+
+  .card-body { padding: 11px 13px 13px; }
+
+  pre {
+    background: #010409;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 7px;
+    padding: 9px 11px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  .kw  { color: #ff7b72; font-weight: 600; }
+  .str { color: #a5d6ff; }
+  .num { color: #ffa657; }
+  .fn  { color: #d2a8ff; }
+  .cm  { color: #8b949e; font-style: italic; }
+  .op  { color: #ff7b72; }
+  .tp  { color: #ffa657; }
+  .bi  { color: #79c0ff; }
+
+  .note {
+    margin-top: 8px;
+    background: rgba(255,255,255,.03);
+    border-left: 3px solid var(--ac);
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--muted);
+    border-radius: 0 5px 5px 0;
+  }
+  .note strong { color: var(--ac); }
+
+  .desc { font-size: 11.5px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+
+  /* mini table */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+  .tbl th { color: var(--ac); text-align: left; padding: 3px 7px; border-bottom: 1px solid var(--border); font-size: 9.5px; text-transform: uppercase; }
+  .tbl td { padding: 3px 7px; border-bottom: 1px solid rgba(255,255,255,.03); color: var(--muted); }
+  .tbl td:first-child { color: var(--text); }
+
+  /* two-col inside card */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    background: linear-gradient(90deg, rgba(75,139,190,.08), rgba(255,211,59,.05));
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+  }
+  .footer .brand { color: #ffd43b; font-weight: 700; font-size: 14px; }
+  .footer .hint { opacity: 0.6; font-size: 11px; }
