@@ -1,0 +1,757 @@
+/* ========================================================
+   GIT & GITHUB CHEATSHEET — CSS
+   Inspirado en el diseño moderno de tarjetas con tema dark
+   ======================================================== */
+
+:root {
+  /* Git colors */
+  --git-orange: #F05032;
+  --git-red: #DE4C36;
+  --git-dark: #2C2C2C;
+  
+  /* GitHub colors */
+  --gh-purple: #8B5CF6;
+  --gh-green: #3FB950;
+  
+  /* Theme colors */
+  --bg-dark: #0D1117;
+  --bg-card: #161B22;
+  --bg-card-hover: #1C2128;
+  --border-color: #30363D;
+  --text-primary: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted: #6E7681;
+  
+  /* Semantic colors */
+  --c-orange: #FF9472;
+  --c-yellow: #FFD43B;
+  --c-green: #3FB950;
+  --c-blue: #79C0FF;
+  --c-purple: #D2A8FF;
+  --c-red: #FF7B72;
+  --c-cyan: #39D4D4;
+  --c-pink: #FF6AB9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(240,80,50,0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139,92,246,0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(240,80,50,0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(139,92,246,0.05) 0px, transparent 50%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1C2128 0%, #161B22 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 2rem;
+  align-items: center;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(240,80,50,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.header-left {
+  position: relative;
+  z-index: 1;
+}
+
+.header-eyebrow {
+  color: var(--git-orange);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.header-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.header-title span {
+  background: linear-gradient(120deg, var(--git-orange), var(--git-red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-sub {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.header-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.badge {
+  background: rgba(240,80,50,0.15);
+  color: var(--git-orange);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(240,80,50,0.3);
+  white-space: nowrap;
+}
+
+.badge.purple {
+  background: rgba(139,92,246,0.15);
+  color: var(--gh-purple);
+  border-color: rgba(139,92,246,0.3);
+}
+
+/* Git Logo */
+.git-logo {
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 20px rgba(240,80,50,0.4));
+  z-index: 1;
+}
+
+/* ==================== GRID ==================== */
+.grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wide { 
+  grid-column: span 2; 
+}
+
+.full { 
+  grid-column: 1 / -1; 
+}
+
+/* ==================== CARDS ==================== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before { opacity: 1; }
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* Color variants */
+.c-orange { --accent: var(--c-orange); }
+.c-yellow { --accent: var(--c-yellow); }
+.c-green { --accent: var(--c-green); }
+.c-blue { --accent: var(--c-blue); }
+.c-purple { --accent: var(--c-purple); }
+.c-red { --accent: var(--c-red); }
+.c-cyan { --accent: var(--c-cyan); }
+.c-pink { --accent: var(--c-pink); }
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent), transparent);
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.card-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.05);
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-body {
+  padding: 1.5rem;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== CODE ==================== */
+pre {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: visible;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 0.75rem 0;
+  flex: 1;
+}
+
+.cmd { color: var(--git-orange); font-weight: 600; }
+.arg { color: var(--c-blue); }
+.flag { color: var(--c-purple); }
+.str { color: var(--c-green); }
+.cm { color: var(--text-muted); font-style: italic; }
+.var { color: var(--c-cyan); }
+.branch { color: var(--c-yellow); }
+.remote { color: var(--gh-purple); }
+
+/* ==================== SECTIONS ==================== */
+.desc {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.two-col > div {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.three-col > div {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1100px) {
+  .three-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.four-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.sec-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.9;
+}
+
+/* ==================== ELEMENTS ==================== */
+.note, .tip, .warn {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  border-left: 3px solid;
+}
+
+.note {
+  background: rgba(121,192,255,0.1);
+  border-color: var(--c-blue);
+  color: var(--c-blue);
+}
+
+.tip {
+  background: rgba(63,185,80,0.1);
+  border-color: var(--c-green);
+  color: var(--c-green);
+}
+
+.warn {
+  background: rgba(255,123,114,0.1);
+  border-color: var(--c-red);
+  color: var(--c-red);
+}
+
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow-x: visible;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flow-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.flow-box.active {
+  background: rgba(240,80,50,0.2);
+  border-color: var(--git-orange);
+  color: var(--git-orange);
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  max-width: 1400px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .header-badges {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .git-logo {
+    margin: 0 auto;
+  }
+  
+  .two-col,
+  .three-col,
+  .four-col {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wide, .full {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+/* ==================== TABLES ==================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+table td:first-child {
+  color: var(--git-orange);
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  width: 40%;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+table tr:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ==================== DIAGRAMAS ==================== */
+.diagram {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(255,255,255,0.05);
+  flex: 1;
+}
+
+/* Ajustes para diagram en three-col */
+.three-col .diagram {
+  margin: 0;
+  padding: 1.5rem;
+}
+
+.diagram-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.three-col .diagram-title {
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.workflow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Ajustes para workflow-diagram en columna de three-col */
+.three-col .workflow-diagram {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.three-col .workflow-arrow {
+  transform: rotate(90deg);
+  font-size: 1.5rem;
+  align-self: center;
+}
+
+.three-col .workflow-step {
+  min-width: auto;
+  width: 100%;
+}
+
+.workflow-step {
+  background: linear-gradient(135deg, rgba(240,80,50,0.15), rgba(240,80,50,0.05));
+  border: 2px solid rgba(240,80,50,0.4);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.three-col .workflow-step {
+  padding: 1rem 0.75rem;
+  min-width: auto;
+}
+
+.workflow-step:hover {
+  transform: translateY(-5px);
+  border-color: var(--git-orange);
+  box-shadow: 0 8px 20px rgba(240,80,50,0.3);
+}
+
+.workflow-step-num {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  background: var(--git-orange);
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.three-col .workflow-step-num {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-step-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.three-col .workflow-step-label {
+  font-size: 0.8rem;
+}
+
+.workflow-step-cmd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.three-col .workflow-step-cmd {
+  font-size: 0.7rem;
+}
+
+.workflow-arrow {
+  color: var(--git-orange);
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+.branch-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.branch-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.branch-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid;
+  flex-shrink: 0;
+}
+
+.branch-dot.main { border-color: var(--c-blue); }
+.branch-dot.feature { border-color: var(--c-green); }
+.branch-dot.merge { 
+  border-color: var(--c-purple);
+  background: var(--c-purple);
+}
+
+.branch-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.git-states-visual {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Ajustes para git-states-visual en columna de three-col */
+.three-col .git-states-visual {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.state-box {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.three-col .state-box {
+  padding: 1rem 0.75rem;
+}
+
+.state-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.state-box.working {
+  border-color: var(--c-orange);
+}
+
+.state-box.staging {
+  border-color: var(--c-yellow);
+}
+
+.state-box.repo {
+  border-color: var(--c-green);
+}
+
+.state-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.three-col .state-icon {
+  font-size: 1.5rem;
+}
+
+.state-label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.three-col .state-label {
+  font-size: 0.8rem;
+}
+
+.state-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.three-col .state-desc {
+  font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+  .git-states-visual {
+    grid-template-columns: 1fr;
+  }
+  
+  .workflow-diagram {
+    flex-direction: column;
+  }
+  
+  .workflow-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .wide, .full {
+    grid-column: span 1;
+  }
+}
